@@ -71,16 +71,15 @@ func main(){
 	
 	sheet := "sheet1"
 
-	var createHpStat = func(hp float64)(finalHp float64){
+	var createHpStat = func(hp float64, ev float64)(finalHp float64){
 
-		finalHp = ((((2 * hp) + 94) * 100) / 100) + 110
+		finalHp = ((((2 * hp) + 31 + (math.Round(ev/4))) * 100) / 100) + 110
 		return math.Round(finalHp/5)
 
 	}
+	var createNonHpStat = func(nonHp float64, ev float64) (finalNonHp float64){
 
-	var createNonHpStat = func(nonHp float64) (finalNonHp float64){
-
-		finalNonHp = ((((2*nonHp)+94)*100)/100) + 5
+		finalNonHp = ((((2*nonHp)+31 + (math.Round(ev/4)))*100)/100) + 5
 		return math.Round(finalNonHp/10)
 
 	}
@@ -95,17 +94,17 @@ func main(){
 
 			case 1: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.Name)
 
-			case 2: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createHpStat(pokemon.Hp))
+			case 2: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createHpStat(pokemon.Hp, 0))
 
-			case 3: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.Attack))
+			case 3: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.Attack,0))
 
-			case 4: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.Defense))
+			case 4: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.Defense,0))
 
-			case 5: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.SpecialAttack))
+			case 5: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.SpecialAttack,0))
 
-			case 6: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.SpecialDefense))
+			case 6: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.SpecialDefense,0))
 
-			case 7: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.Speed))
+			case 7: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , createNonHpStat(pokemon.Speed,0))
 				
 			}
 
