@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/mtslzr/pokeapi-go"
@@ -15,17 +16,6 @@ type pokemon struct {
 var allpokemons []pokemon
 
 func main(){
-
-	file := excelize.NewFile()
-
-	log.Println(file.SetCellValue("sheet1", "A1", 3))
-
-	log.Println(file.SaveAs("asjkdaksdjask.xlsx"))
-	
-
-}
-
-func main2(){
 
 	results , err := pokeapi.Resource("pokemon", 0, 2000)
 
@@ -77,11 +67,38 @@ func main2(){
 
 
 	f := excelize.NewFile()
+	
 	sheet := "sheet1"
 
-	for _, pokemon := range allpokemons {
-		
+	for pokemonIndex, pokemon := range allpokemons {
+
+		for i := 0; i < 8; i++{
+
+			switch i {
+
+			case 0: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemonIndex+1)
+
+			case 1: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.Name)
+
+			case 2: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.Hp)
+
+			case 3: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.Attack)
+
+			case 4: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.Defense)
+
+			case 5: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.SpecialAttack)
+
+			case 6: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.SpecialDefense)
+
+			case 7: f.SetCellValue(sheet, fmt.Sprintf("%v%v", excelColumnsForStats[i], pokemonIndex+2) , pokemon.Speed)
+				
+			}
+
+		}
+	
 	}
+
+	f.SaveAs("AllPokemonsWithStats.xlsx")
 
 }
 
