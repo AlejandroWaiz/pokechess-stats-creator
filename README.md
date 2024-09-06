@@ -1,0 +1,1 @@
+This project makes http calls to pokeapi searching for a pokemon's name and hp, attack, defense, special attack, special defense and speed stats. then creates structs for each one of them and then write it in an excel file.
